@@ -7,7 +7,7 @@ input {
 }
 
 .question-container {
-    background-color: #26cfc1;
+    background-color: green;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
@@ -20,7 +20,7 @@ input {
 }
 
 .page-header {
-    background-color: #8273da;
+    background-color: blue;
     margin: 0px;
     border: 0px;
     padding-top: 9px;
@@ -28,7 +28,7 @@ input {
 
 .page-header * {
     text-align: center;
-    color: #fff;
+    color: white;
 }
 
 .nav-button {
@@ -38,10 +38,10 @@ input {
     display: none;
 }
 
-label {
+/*label {
     color: #111;
 }
-
+*/
 #begin-button {
     display: block;
     margin: 0 auto;
