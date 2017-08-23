@@ -105,39 +105,24 @@ $(document).ready(function() {
         }
     };
 
-    var tallyScore = function() {
-        for(var i = 0; i < allQuestionsArrayLength; i++) {
-            var findAnswer = allQuestions[i].correctAnswer,
-                answerID = "radio-c" + i + "-" + findAnswer;
+    
 
-            //console.log(answerID);
-            //console.log(document.getElementById(answerID));
-            //console.log(document.getElementById(answerID).checked);
-            if(document.getElementById(answerID).checked) {
-                //console.log('true');
-                numberOfCorrectAnswers++;
-                //console.log(numberOfCorrectAnswers);
-            }
-        }
-
-        $('#score-total').html(numberOfCorrectAnswers);
-    };
 
     //Begin button
-    $('#begin-button').click(function() {
-        $('#welcome').hide('fast');
-        $('.nav-button').show('fast');
+    $("#begin-button").click(function() {
+        $("#welcome").hide("fast");
+        $(".nav-button").show("fast");
 
         if(questionNavIndex === 0) {
-            $('#back-button').hide('fast');
+            $("#back-button").hide("fast");
         }
 
         printQuizQuestions();
-        $('#question-0').show('fast');
+        $("#question-0").show("fast");
     });
 
     //Next button
-    $('#next-button').click(function() {
+    $("#next-button").click(function() {
         var questionNavIDToHide = "#question-" + questionNavIndex;
 
         $(questionNavIDToHide).hide('fast');
@@ -149,20 +134,20 @@ $(document).ready(function() {
         $(questionNavIDToShow).show('fast');
 
         if(questionNavIndex >= allQuestionsArrayLength) {
-            $('.nav-button').hide('fast');
+            $(".nav-button").hide('fast');
             tallyScore();
-            $('#score').show('fast');
+            $("#score").show('fast');
         }
 
          if(questionNavIndex >= 0) {
-            $('#back-button').show('fast');
+            $("#back-button").show('fast');
          }
     });
 
     //Back button
-    $('#back-button').click(function() {
+    $("#back-button").click(function() {
         if(questionNavIndex === 0) {
-            $('#back-button').hide('fast');
+            $("#back-button").hide('fast');
         }
 
         var questionNavIDToHide = "#question-" + questionNavIndex;
@@ -176,22 +161,22 @@ $(document).ready(function() {
         $(questionNavIDToShow).show('fast');
     });
 
-    //Retake Quiz button
-    $('#retake-button').click(function() {
-        $('#quiz').children().remove();
-        questionNavIndex = 0
-        previousQuizAttempts.push(numberOfCorrectAnswers);
-        numberOfCorrectAnswers = 0;
-        $('#score').hide('fast');
-        $('#welcome').show('fast');
+    // //Retake Quiz button
+    // $('#retake-button').click(function() {
+    //     $('#quiz').children().remove();
+    //     questionNavIndex = 0
+    //     previousQuizAttempts.push(numberOfCorrectAnswers);
+    //     numberOfCorrectAnswers = 0;
+    //     $('#score').hide('fast');
+    //     $('#welcome').show('fast');
 
-        console.log(previousQuizAttempts);
-    });
+    //     console.log(previousQuizAttempts);
+    // });
 
 
     //  Interval Demonstration***************************************************************************
     //  Set our number counter to 100.
-    var number = 10;
+    var number = 6;
 
     //  Variable that will hold our interval ID when we execute
     //  the "run" function
@@ -222,26 +207,46 @@ $(document).ready(function() {
       number--;
 
       //  Show the number in the #show-number tag.
-      $(".page-header").html("<h2>" + number + "</h2>");
+      $("#timeRemaining").html("<h2>" + number + "</h2>");
 
 
       //  Once number hits zero...
       if (number === 0) {
 
         //  ...run the stop function.
-        stop();
+        
          $('#quiz').children().remove();
         questionNavIndex = 0
-        previousQuizAttempts.push(numberOfCorrectAnswers);
-        numberOfCorrectAnswers = 0;
-        $('#score').hide('fast');
-        $('#welcome').show('fast');
+        // previousQuizAttempts.push(numberOfCorrectAnswers);
+       
+        $('#score').show('fast');
+        $('#welcome').hide('fast');
 
 
         //  Alert the user that time is up.
-        alert("Time Up!");
+       $("#timeRemaining").text("Time Up!");
+       stop();
       }
     }
+    var tallyScore = function() {
+        for(var i = 0; i < allQuestionsArrayLength; i++) {
+            var findAnswer = allQuestions[i].correctAnswer,
+                answerID = "radio-c" + i + "-" + findAnswer;
+
+            // console.log(answerID);
+            // console.log(document.getElementById(answerID));
+            //console.log(document.getElementById(answerID).checked);
+            if(document.getElementById(answerID).checked) {
+                //console.log('true');
+                numberOfCorrectAnswers++;
+                //console.log(numberOfCorrectAnswers);
+
+            }
+
+        }
+
+       $("#score-total").text(numberOfCorrectAnswers); 
+    };
 
     //  The stop function
     function stop() {
@@ -251,10 +256,12 @@ $(document).ready(function() {
       //  to the clearInterval function.
       clockRunning = false;
       clearInterval(intervalId);
+      $(".nav-button").html("");
     }
 
     //  Execute the run function.
     // run();
 
 
-});
+    
+    });

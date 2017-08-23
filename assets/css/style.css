@@ -6,12 +6,22 @@ input {
     display: block;
 }
 
+img {
+    display: block;
+    margin: auto;
+    width: 30%;
+}
+
 .question-container {
     background-color: green;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
     width: 50%;
+}
+
+#timeFloat {
+    float: left;
 }
 
 .question-container * {
