@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
 
+
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
       <link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -13,25 +14,27 @@
 <body>
    <div class="page-header">
         <h1>Trivia Trivia Trivia - African Leaders</h1>
+         <h2>Time Remaining: <span id="timeRemaining"> 180 Seconds</span></h2> 
     </div>
 
     <div id='welcome' class="jumbotron">
         <h1>African leaders!</h1>
         <p>Test your knowlege on African Leaders.</p>
-        <input type='button' value='Start' id='begin-button' class="btn btn-primary"></input>
+        <input type="button" value="Start" id="begin-button" class="btn btn-primary"></input>
+        <img src="assets/images/africa-map.gif">
     </div>
 
-    <div id='score' class="jumbotron">
+    <div id="score" class="jumbotron">
         <h1>Quiz Complete</h1>
-        <p id='total'>Your Final Score is: <span id='score-total'></span> Out of 10</p>
-        <input type='button' value='Retake Quiz' id='retake-button' class="btn btn-info"></input>
+        <p id="total">Your Final Score is: <span id="score-total"> </span> Out of 10</p>
+      
     </div>
 
     <div id="quiz"></div>
     
     <div class="nav-button">
-        <input type='button' value='Back' id='back-button' class="btn btn-default"></input>
-        <input type='button' value='Next' id='next-button' class="btn btn-default"></input>
+        <input type="button" value="Back" id="back-button" class="btn btn-default"></input>
+        <input type="button" value="Next" id="next-button" class="btn btn-default"></input>
     </div>
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js">

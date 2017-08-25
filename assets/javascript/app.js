@@ -40,34 +40,7 @@ var allQuestions = [{question: "Question 1: He won a noble peace price for his w
                                "D: Haile Selassie"],
                      correctAnswer: 3
                     },
-                    {question: 'Question 7: The first President of Kenya. Kenya gained independence in 1963?',
-                     choices: ["A: Robert Mugabe",
-                               "B: Marcus Garvey",
-                               "C: Jomo Kenyatta",
-                               "D: Olusegun Obasanjo"],
-                     correctAnswer: 2
-                    },
-                    {question: 'Question 8: A great king and conqueror. He lived in an area of south-east Africa between the Drakensberg and the Indian Ocean?',
-                     choices: ["A: Mansa Musa",
-                               "B: Kaku Ackah",
-                               "C: Asebu Amenfi",
-                               "D: Shaka Zulu"],
-                     correctAnswer: 3
-                    },
- {question: 'Question 9:  A Zimbabwean revolutionary and politician who has been President of Zimbabwe since 1980?',
-                     choices: ["Morgan Tsvangirai",
-                               "B: Marcus Garvey",
-                               "C: Julius Nyerere",
-                               "D: Robert Mugabe"],
-                     correctAnswer: 3
-                    },
- {question: 'Question 10: A South African activist and politician who has held several government positions and headed the African National Congress Women League?',
-                     choices: ["A: Nelson Mandela",
-                               "B: Robert Mugabe",
-                               "C: Winnie Mandela",
-                               "D: Jacob Zuma"],
-                     correctAnswer: 2
-                    },
+                    
   
                     ];
 
@@ -105,39 +78,24 @@ $(document).ready(function() {
         }
     };
 
-    var tallyScore = function() {
-        for(var i = 0; i < allQuestionsArrayLength; i++) {
-            var findAnswer = allQuestions[i].correctAnswer,
-                answerID = "radio-c" + i + "-" + findAnswer;
+    
 
-            //console.log(answerID);
-            //console.log(document.getElementById(answerID));
-            //console.log(document.getElementById(answerID).checked);
-            if(document.getElementById(answerID).checked) {
-                //console.log('true');
-                numberOfCorrectAnswers++;
-                //console.log(numberOfCorrectAnswers);
-            }
-        }
-
-        $('#score-total').html(numberOfCorrectAnswers);
-    };
 
     //Begin button
-    $('#begin-button').click(function() {
-        $('#welcome').hide('fast');
-        $('.nav-button').show('fast');
+    $("#begin-button").click(function() {
+        $("#welcome").hide("fast");
+        $(".nav-button").show("fast");
 
         if(questionNavIndex === 0) {
-            $('#back-button').hide('fast');
+            $("#back-button").hide("fast");
         }
 
         printQuizQuestions();
-        $('#question-0').show('fast');
+        $("#question-0").show("fast");
     });
 
     //Next button
-    $('#next-button').click(function() {
+    $("#next-button").click(function() {
         var questionNavIDToHide = "#question-" + questionNavIndex;
 
         $(questionNavIDToHide).hide('fast');
@@ -149,20 +107,20 @@ $(document).ready(function() {
         $(questionNavIDToShow).show('fast');
 
         if(questionNavIndex >= allQuestionsArrayLength) {
-            $('.nav-button').hide('fast');
+            $(".nav-button").hide('fast');
             tallyScore();
-            $('#score').show('fast');
+            $("#score").show('fast');
         }
 
          if(questionNavIndex >= 0) {
-            $('#back-button').show('fast');
+            $("#back-button").show('fast');
          }
     });
 
     //Back button
-    $('#back-button').click(function() {
+    $("#back-button").click(function() {
         if(questionNavIndex === 0) {
-            $('#back-button').hide('fast');
+            $("#back-button").hide('fast');
         }
 
         var questionNavIDToHide = "#question-" + questionNavIndex;
@@ -176,15 +134,96 @@ $(document).ready(function() {
         $(questionNavIDToShow).show('fast');
     });
 
-    //Retake Quiz button
-    $('#retake-button').click(function() {
-        $('#quiz').children().remove();
-        questionNavIndex = 0
-        previousQuizAttempts.push(numberOfCorrectAnswers);
-        numberOfCorrectAnswers = 0;
-        $('#score').hide('fast');
-        $('#welcome').show('fast');
+   
 
-        console.log(previousQuizAttempts);
+
+    //  TIME CLOCK**************************************************************************
+    //  Set our number counter to 180.
+    var number = 180;
+
+    //  Variable that will hold our interval ID when we execute
+    //  the "run" function
+    var intervalId;
+
+    var clockRunning = true;
+
+    //  When the stop button gets clicked, run the stop function.
+    // $("#stop").on("click", stop);
+
+    //  When the resume button gets clicked, execute the run function.
+    $("#begin-button").on("click", run);
+
+    //  The run function sets an interval
+    //  that runs the decrement function once a second.
+    function run() {
+      if (clockRunning === true) {
+       clockRunning = false;
+       intervalId = setInterval(decrement, 1000);
+       
+      }
+    }
+
+    //  The decrement function.
+    function decrement() {
+
+      //  Decrease number by one.
+      number--;
+
+      //  Show the number in the #show-number tag.
+      $("#timeRemaining").html("<h2>" + number + "</h2>");
+
+
+      //  Once number hits zero...
+      if (number === 0) {
+
+        //  ...run the stop function.
+        
+         $('#quiz').children().remove();
+        questionNavIndex = 0
+        // previousQuizAttempts.push(numberOfCorrectAnswers);
+       
+        $('#score').show('fast');
+        $('#welcome').hide('fast');
+
+
+        //  Alert the user that time is up.
+       $("#timeRemaining").text("Time Up!");
+       stop();
+      }
+    }
+    var tallyScore = function() {
+        for(var i = 0; i < allQuestionsArrayLength; i++) {
+            var findAnswer = allQuestions[i].correctAnswer,
+                answerID = "radio-c" + i + "-" + findAnswer;
+
+            // console.log(answerID);
+          
+            if(document.getElementById(answerID).checked) {
+           
+                numberOfCorrectAnswers++;
+                //console.log(numberOfCorrectAnswers);
+
+            }
+
+        }
+
+       $("#score-total").text(numberOfCorrectAnswers); 
+    };
+
+    //  The stop function
+    function stop() {
+
+      //  Clears our intervalId
+      //  We just pass the name of the interval
+      //  to the clearInterval function.
+      clockRunning = false;
+      clearInterval(intervalId);
+      $(".nav-button").html("");
+    }
+
+    //  Execute the run function.
+    // run();
+
+
+    
     });
-});
